@@ -1,0 +1,712 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#F7F5EF">
+<title>BRO Petroleum | Technology Evolution</title>
+<style>
+/* BRO light theme: viewport-safe, dependency-free presentation. */
+:root {
+  --teal: #163E53;
+  --amber: #EFAA3C;
+  --brown: #51340C;
+  --white: #FFFFFF;
+  --paper: #F7F5EF;
+  --paper-deep: #EFECE3;
+  --ink: #263742;
+  --muted: #4B5D66;
+  --line: rgba(22,62,83,.22);
+  --title-size: clamp(1.6rem, 4.5cqw, 4.2rem);
+  --h2-size: clamp(1.3rem, 2.7cqw, 2.35rem);
+  --body-size: clamp(.82rem, 1.35cqw, 1.15rem);
+  --small-size: clamp(.68rem, .9cqw, .82rem);
+  --slide-padding: clamp(1.15rem, 5.3cqw, 5.4rem);
+  --gap: clamp(.65rem, 1.8cqw, 1.55rem);
+}
+* { box-sizing: border-box; }
+html, body { height:100%; margin:0; overflow-x:hidden; }
+html { scroll-snap-type:y mandatory; scroll-behavior:smooth; background:var(--paper); }
+body { color:var(--ink); font-family: "Trebuchet MS", "Segoe UI", sans-serif; }
+button { font:inherit; }
+.deck { width:100%; }
+.slide {
+  width:100cqw; height:100cqh; height:100cqh; overflow:hidden; scroll-snap-align:start;
+  position:relative; display:flex; flex-direction:column; background:var(--paper);
+  isolation:isolate;
+}
+.slide:nth-child(even) { background:var(--white); }
+.slide::before { content:""; position:absolute; z-index:-1; width:34cqw; aspect-ratio:1; border:1px solid var(--line); border-radius:50%; right:-15cqw; top:-20cqw; }
+.slide::after { content:""; position:absolute; z-index:-1; width:20cqw; aspect-ratio:1; border:1px solid rgba(239,170,60,.3); border-radius:50%; right:-9cqw; top:-12cqw; }
+.topline { position:absolute; top:clamp(.65rem,2cqh,1.25rem); left:var(--slide-padding); right:var(--slide-padding); display:flex; justify-content:space-between; align-items:center; color:var(--muted); font-size:var(--small-size); letter-spacing:.1em; text-transform:uppercase; }
+.brand { color:var(--teal); font-weight:800; letter-spacing:.15em; }
+.slide-content { width:100%; height:100%; max-height:100%; overflow:hidden; padding:calc(var(--slide-padding) + 1.2rem) var(--slide-padding) clamp(3.2rem,7cqh,4.7rem); display:flex; flex-direction:column; justify-content:center; gap:var(--gap); }
+.eyebrow { color:var(--brown); font-size:var(--small-size); text-transform:uppercase; letter-spacing:.18em; font-weight:800; }
+h1,h2,h3,p { margin:0; }
+h1,h2 { color:var(--teal); font-family:Georgia, "Times New Roman", serif; font-weight:600; letter-spacing:-.035em; line-height:1.06; }
+h1 { font-size:var(--title-size); max-width:17ch; }
+h2 { font-size:var(--h2-size); max-width:25ch; }
+h3 { color:var(--teal); font-size:clamp(.9rem,1.25cqw,1.1rem); line-height:1.2; }
+.lead { color:var(--brown); font-family:Georgia,serif; font-size:clamp(1rem,1.65cqw,1.42rem); line-height:1.38; max-width:60ch; }
+.body { font-size:var(--body-size); line-height:1.5; max-width:68ch; }
+.accent { color:var(--brown); font-weight:800; }
+.amber-rule { width:clamp(3rem,7cqw,6.5rem); height:.28rem; border:0; margin:0; background:var(--amber); border-radius:2rem; }
+.grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(.55rem,1.25cqw,1rem); }
+.grid-3 { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(.55rem,1.1cqw,.9rem); }
+.grid-4 { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:clamp(.45rem,1cqw,.8rem); }
+.card { min-width:0; border:1px solid var(--line); border-radius:1rem; background:var(--white); padding:clamp(.72rem,1.35cqw,1.2rem); box-shadow:0 8px 24px rgba(22,62,83,.07); }
+.slide:nth-child(even) .card { background:var(--paper); }
+.card p { margin-top:.35rem; color:var(--ink); font-size:clamp(.73rem,1.05cqw,.96rem); line-height:1.4; }
+.icon { width:2rem; height:2rem; border-radius:.65rem; display:grid; place-items:center; color:var(--teal); background:rgba(239,170,60,.22); font-size:1.05rem; font-weight:900; margin-bottom:.6rem; }
+.list { list-style:none; padding:0; margin:0; display:grid; gap:clamp(.5rem,1.15cqh,.9rem); }
+.list li { position:relative; padding-left:1.3rem; font-size:var(--body-size); line-height:1.38; }
+.list li::before { content:""; position:absolute; left:0; top:.48em; width:.5rem; height:.5rem; border-radius:50%; background:var(--amber); box-shadow:0 0 0 3px rgba(239,170,60,.17); }
+.callout { border-left:.28rem solid var(--amber); padding:.25rem 0 .25rem 1rem; color:var(--brown); font-size:clamp(.88rem,1.3cqw,1.1rem); line-height:1.4; font-weight:700; max-width:68ch; }
+.visual-row { display:grid; grid-template-columns:1.15fr .85fr; align-items:center; gap:clamp(1rem,3cqw,3rem); }
+.flow { display:flex; align-items:center; justify-content:center; gap:.65rem; flex-wrap:wrap; }
+.node { padding:.7rem .9rem; border:1px solid var(--line); border-radius:.8rem; background:var(--white); color:var(--teal); font-weight:800; text-align:center; font-size:var(--small-size); }
+.arrow { color:var(--amber); font-weight:900; font-size:1.35rem; }
+.table { width:100%; border-collapse:separate; border-spacing:0; overflow:hidden; border:1px solid var(--line); border-radius:.85rem; background:var(--white); font-size:clamp(.72rem,1cqw,.94rem); }
+.table th { text-align:left; color:var(--white); background:var(--teal); font-size:.92em; padding:.65rem .75rem; }
+.table td { vertical-align:top; padding:.62rem .75rem; border-top:1px solid var(--line); line-height:1.32; }
+.table tr:nth-child(even) td { background:var(--paper); }
+.tracks { display:grid; grid-template-columns:1fr 1fr; gap:.7rem; }
+.track { border-radius:1rem; padding:clamp(.75rem,1.3cqw,1.15rem); background:var(--white); border:1px solid var(--line); }
+.track h3 { display:flex; align-items:center; gap:.55rem; margin-bottom:.5rem; }
+.track h3::before { content:""; width:.65rem; height:.65rem; background:var(--amber); border-radius:50%; }
+.track ul { margin:0; padding-left:1rem; color:var(--ink); font-size:clamp(.72rem,1cqw,.94rem); line-height:1.35; }
+.track li+li { margin-top:.25rem; }
+.track-ai { grid-column:1/-1; background:var(--paper-deep); border:1px dashed var(--teal); }
+.timeline { display:grid; grid-template-columns:repeat(3,1fr); gap:.65rem; }
+.week { position:relative; border-top:.22rem solid var(--amber); padding:.8rem .75rem; background:var(--white); border-radius:0 0 .8rem .8rem; }
+.week b { color:var(--teal); display:block; margin-bottom:.35rem; }
+.week p { color:var(--ink); font-size:clamp(.72rem,1cqw,.92rem); line-height:1.35; }
+.hero-visual { display:grid; grid-template-columns:1fr 1fr; gap:.65rem; transform:rotate(-2deg); }
+.friction { padding:.8rem; min-height:5rem; border-radius:.9rem; background:var(--white); border:1px solid var(--line); color:var(--brown); font-weight:800; box-shadow:0 10px 22px rgba(22,62,83,.06); }
+.friction span { display:block; color:var(--ink); font-size:.8rem; font-weight:500; margin-top:.25rem; }
+.service-path { display:flex; align-items:center; justify-content:space-between; gap:.5rem; }
+.service-path .node { flex:1; }
+.tag { display:inline-flex; align-items:center; gap:.4rem; width:max-content; background:rgba(239,170,60,.23); border-radius:99px; color:var(--brown); padding:.4rem .7rem; font-size:var(--small-size); font-weight:800; }
+.bottomline { position:absolute; left:var(--slide-padding); right:var(--slide-padding); bottom:clamp(.55rem,1.7cqh,1rem); display:flex; justify-content:space-between; align-items:center; color:var(--muted); font-size:var(--small-size); }
+.bottomline .num { color:var(--teal); font-weight:800; font-variant-numeric:tabular-nums; }
+.controls { position:fixed; z-index:20; right:1rem; bottom:1rem; display:flex; align-items:center; gap:.4rem; }
+.controls button,.source-button { border:1px solid var(--line); background:rgba(255,255,255,.94); color:var(--teal); border-radius:99px; min-width:2.5rem; height:2.5rem; padding:0 .75rem; cursor:pointer; box-shadow:0 4px 14px rgba(22,62,83,.1); }
+.controls button:hover,.source-button:hover { background:var(--amber); color:var(--brown); }
+.progress { position:fixed; z-index:30; top:0; left:0; height:4px; width:100%; background:rgba(22,62,83,.08); }
+.progress span { display:block; height:100%; width:0; background:var(--amber); transition:width .3s ease; }
+.dots { position:fixed; z-index:15; right:.55rem; top:50%; transform:translateY(-50%); display:grid; gap:.43rem; }
+.dots button { width:.48rem; height:.48rem; padding:0; border:0; border-radius:50%; background:rgba(22,62,83,.25); cursor:pointer; }
+.dots button[aria-current="true"] { background:var(--amber); transform:scale(1.35); }
+.dialog { width:min(720px,calc(100cqw - 2rem)); max-height:85cqh; overflow:auto; border:1px solid var(--line); border-radius:1rem; padding:1.5rem; color:var(--ink); background:var(--paper); box-shadow:0 20px 60px rgba(22,62,83,.2); }
+.dialog::backdrop { background:rgba(15,36,48,.42); }
+.dialog h2 { font-size:1.6rem; margin-bottom:1rem; }
+.dialog p,.dialog li { line-height:1.45; margin:.45rem 0; font-size:.95rem; }
+.dialog a { color:var(--teal); overflow-wrap:anywhere; }
+.close-dialog { float:right; border:0; background:var(--amber); color:var(--brown); border-radius:99px; padding:.45rem .8rem; cursor:pointer; }
+.reveal { opacity:0; transform:translateY(14px); transition:opacity .45s ease,transform .45s ease; }
+.slide.is-active .reveal { opacity:1; transform:translateY(0); }
+.slide.is-active .reveal:nth-child(2) { transition-delay:.04s; }
+.slide.is-active .reveal:nth-child(3) { transition-delay:.08s; }
+.title-slide .slide-content { justify-content:center; }
+.title-slide h1 { max-width:15ch; }
+.title-slide .title-mark { display:flex; align-items:center; gap:.8rem; color:var(--teal); font-weight:900; letter-spacing:.17em; font-size:var(--small-size); }
+.title-slide .title-mark::before { content:""; width:2.7rem; height:.24rem; border-radius:2rem; background:var(--amber); }
+.title-slide .ghost { position:absolute; right:5cqw; bottom:10cqh; width:min(38cqw,440px); opacity:.9; }
+.process-svg { width:100%; max-height:36cqh; }
+.scene { display:block; width:100%; height:auto; max-height:36cqh; overflow:visible; }
+.scene text { font-family:"Trebuchet MS","Segoe UI",sans-serif; }
+.scene text:not([fill]) { fill:var(--teal); }
+.mobile-brief { display:none; }
+.scene .s-muted { fill:var(--muted); }
+.scene .s-brown { fill:var(--brown); }
+.scene .s-line { fill:none; stroke:var(--teal); stroke-opacity:.28; stroke-width:2; }
+.scene .s-amber { fill:var(--amber); }
+.scene .s-teal { fill:var(--teal); }
+.scene .s-paper { fill:var(--paper); }
+.scene .s-white { fill:var(--white); }
+.scene .s-dash { fill:none; stroke:var(--amber); stroke-width:3; stroke-dasharray:7 7; }
+.scene-wrap { border:1px solid var(--line); border-radius:1.2rem; background:var(--white); padding:clamp(.45rem,1.2cqw,1rem); box-shadow:0 10px 28px rgba(22,62,83,.06); }
+.slide:nth-child(even) .scene-wrap { background:var(--paper-deep); }
+.split-scene { display:grid; grid-template-columns:minmax(0,1fr) minmax(260px,.86fr); gap:clamp(1rem,3cqw,3rem); align-items:center; }
+.split-scene.reverse { grid-template-columns:minmax(260px,.86fr) minmax(0,1fr); }
+.scene-label { color:var(--muted); font-size:var(--small-size); line-height:1.35; }
+.mini-scene { display:block; width:clamp(3.4rem,5cqw,4.8rem); height:clamp(2.25rem,3.4cqw,3.25rem); margin-bottom:.4rem; overflow:visible; }
+.proof-visual { display:grid; grid-template-columns:5rem 1fr; gap:.8rem; align-items:center; min-height:5rem; margin:.7rem 0; }
+.proof-visual svg { width:5rem; height:4rem; }
+.proof-stat { font-family:Georgia,serif; color:var(--teal); font-size:clamp(1.4rem,2.3cqw,2.3rem); line-height:1; }
+.proof-caption { margin-top:.25rem; color:var(--muted); font-size:var(--small-size); line-height:1.35; }
+.panel-title { color:var(--teal); font-weight:800; letter-spacing:.06em; font-size:var(--small-size); text-transform:uppercase; }
+.source-button { position:fixed; z-index:20; left:1rem; bottom:1rem; height:2.25rem; font-size:.82rem; }
+
+
+
+
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after { animation-duration:.01ms!important; transition-duration:.01ms!important; scroll-behavior:auto!important; }
+  html { scroll-behavior:auto; }
+  .reveal { opacity:1; transform:none; }
+}
+
+/* Executive editorial system: deliberate contrast, calmer type, varied surfaces. */
+:root {
+  --ink:#263742;
+  --muted:#465963;
+  --paper:#F7F5EF;
+  --paper-deep:#EEECE4;
+  --line:rgba(22,62,83,.2);
+  --title-size:clamp(2rem,4.2cqw,4.35rem);
+  --h2-size:clamp(1.55rem,3cqw,2.8rem);
+  --body-size:clamp(.95rem,1.15cqw,1.16rem);
+  --small-size:clamp(.78rem,.9cqw,.88rem);
+  --slide-padding:clamp(1.25rem,5.6cqw,5.6rem);
+  --gap:clamp(.6rem,1.5cqw,1.2rem);
+}
+.slide { background:var(--paper); }
+.slide:nth-child(even) { background:var(--white); }
+.slide-content { justify-content:center; gap:var(--gap); padding-top:3.7rem; padding-bottom:3.5rem; }
+.title-slide .slide-content { gap:clamp(.55rem,1.1cqw,1rem); }
+h1,h2 { text-transform:none; letter-spacing:-.03em; line-height:1.08; }
+h1 { max-width:14ch; font-size:var(--title-size); font-weight:700; }
+h2 { max-width:30ch; font-size:var(--h2-size); font-weight:700; }
+h3 { font-size:1.05rem; font-weight:750; }
+.eyebrow { color:var(--brown); letter-spacing:.14em; font-size:var(--small-size); }
+.body,.lead,.callout,.list li { color:var(--ink); }
+.lead { font-size:clamp(1.08rem,1.7cqw,1.4rem); }
+.body { font-size:var(--body-size); line-height:1.5; }
+.card { background:var(--white); border:0; border-top:2px solid var(--amber); border-radius:.3rem; box-shadow:none; padding:1rem 1.1rem; }
+.slide:nth-child(even) .card { background:var(--paper); }
+.card p,.track ul,.week p,.friction span { color:var(--ink); font-size:.94rem; line-height:1.45; }
+.track,.week { border-color:var(--line); background:var(--white); }
+.slide:nth-child(even) .track,.slide:nth-child(even) .week { background:var(--paper); }
+.track-ai { background:var(--paper-deep); border:1px solid var(--teal); }
+.callout { background:rgba(239,170,60,.14); border-left:.28rem solid var(--amber); border-radius:0 .5rem .5rem 0; padding:.72rem 1rem; font-size:1rem; line-height:1.45; }
+.tag { background:var(--teal); color:var(--white); border-radius:.2rem; font-size:.78rem; letter-spacing:.025em; }
+.topline,.bottomline { color:var(--muted); }
+.brand,.bottomline .num { color:var(--teal); }
+.scene { max-height:32cqh; }
+.scene-wrap { background:var(--white); border-color:var(--line); border-radius:.35rem; box-shadow:none; }
+.slide:nth-child(even) .scene-wrap { background:var(--paper-deep); }
+.scene .s-muted { fill:var(--muted); }
+.scene-label,.proof-caption { color:var(--muted); }
+.flow .node { background:var(--white); border:1px solid var(--teal); color:var(--teal); }
+.flow .node:nth-of-type(3) { background:var(--paper-deep); }
+.flow .arrow { color:var(--brown); }
+.pilot-brief { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+.pilot-brief > div { padding:.8rem 1rem; }
+.pilot-brief > div + div { border-left:1px solid var(--line); }
+.term-label { display:block; color:var(--brown); font-weight:800; font-size:.82rem; letter-spacing:.08em; text-transform:uppercase; margin-bottom:.35rem; }
+.pilot-brief p { color:var(--ink); font-size:.92rem; line-height:1.4; }
+.usecase-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); column-gap:2rem; }
+.usecase { display:grid; grid-template-columns:4.2rem minmax(0,1fr); gap:.5rem 1rem; align-items:start; padding:1rem 0; border-top:1px solid var(--line); }
+.usecase:nth-child(4n+1) { border-top:3px solid var(--amber); }
+.usecase:nth-child(4n+2) { border-top:3px solid var(--teal); }
+.usecase:nth-child(4n+3) { border-top:3px solid var(--brown); }
+.usecase:nth-child(4n) { border-top:3px solid var(--paper-deep); }
+.usecase .mini-scene { grid-row:span 3; width:3.8rem; height:2.8rem; margin:.15rem 0 0; }
+.usecase h3 { margin:0; }
+.usecase p { color:var(--ink); font-size:.92rem; line-height:1.4; }
+.usecase .tag { grid-column:2; justify-self:start; }
+.case-grid { display:grid; grid-template-columns:1.1fr .9fr; gap:clamp(1rem,3cqw,2.5rem); align-items:stretch; }
+.case-study { padding:1.2rem 1.35rem; border-left:4px solid var(--amber); background:var(--white); }
+.case-study:nth-child(even) { border-left-color:var(--teal); background:var(--paper-deep); }
+.case-study p { color:var(--ink); font-size:.96rem; line-height:1.45; }
+.decision-ask { background:var(--teal); color:var(--white); border-left:6px solid var(--amber); border-radius:0; padding:1rem 1.25rem; font-size:1.1rem; }
+.decision-ask strong { color:var(--white); }
+.signal-panel { display:flex; align-items:center; gap:1rem; background:var(--teal); color:var(--white); border-left:6px solid var(--amber); padding:.85rem 1rem; font-size:1.06rem; font-weight:700; }
+.signal-panel strong { color:var(--white); }
+
+
+
+
+
+
+
+/* ===== Design fixes (enhanced) ===== */
+:root{
+  --title-size:clamp(2.3rem,4.9cqw,5rem);
+  --h2-size:clamp(1.8rem,3.5cqw,3.5rem);
+  --body-size:clamp(1.05rem,1.4cqw,1.4rem);
+  --small-size:clamp(.82rem,.98cqw,.98rem);
+  --slide-padding:clamp(1.25rem,6cqw,6.5rem);
+  --gap:clamp(.9rem,1.9cqw,1.8rem);
+}
+/* 1. Footer text and slide numbers no longer sit under the fixed buttons */
+.bottomline{left:max(var(--slide-padding),9.5rem);right:max(var(--slide-padding),10.5rem);font-size:var(--small-size)}
+.topline{font-size:var(--small-size)}
+/* 2. Larger, more readable type that fills a laptop or projector screen */
+h2{max-width:32ch}
+.lead{font-size:clamp(1.15rem,1.9cqw,1.65rem);max-width:56ch}
+.card p,.track ul,.week p,.friction span,.pilot-brief p,.usecase p,.case-study p{font-size:clamp(.98rem,1.2cqw,1.18rem);line-height:1.45}
+.callout,.signal-panel,.decision-ask{font-size:clamp(1.02rem,1.3cqw,1.28rem);max-width:none}
+.list li{font-size:var(--body-size)}
+h3{font-size:clamp(1.05rem,1.4cqw,1.32rem)}
+.tag{font-size:clamp(.78rem,.95cqw,.92rem)}
+.node{font-size:var(--small-size)}
+.term-label{font-size:var(--small-size)}
+.table{font-size:clamp(.9rem,1.15cqw,1.12rem)}
+/* 3. Diagrams scale up and sit in a clearer frame */
+.scene{max-height:44cqh}
+.scene-wrap{padding:clamp(.8rem,1.6cqw,1.5rem);border-top:3px solid var(--amber)}
+.scene-wrap .scene{overflow:visible}
+.split-scene{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}
+.split-scene.reverse{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr)}
+.process-svg{max-height:44cqh}
+/* 4. Title slide: two columns, big headline, bigger illustration, no overflow */
+.title-slide .slide-content{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);column-gap:clamp(1.5rem,4cqw,4rem);align-content:center;align-items:center}
+.title-slide .slide-content>*{grid-column:1}
+.title-slide h1{max-width:13ch;font-size:clamp(2.6rem,5.6cqw,5.6rem)}
+.title-slide .scene{grid-column:2;grid-row:1/span 4;max-height:60cqh;width:100%}
+/* 5. Closing line reads as a deliberate sign-off */
+.closing-line{margin-top:.4rem;padding-top:1rem;border-top:3px solid var(--amber);max-width:none;color:var(--teal);font-size:clamp(1.25rem,2.2cqw,2rem);font-weight:700}
+/* 6. Quieter background rings so they never compete with content */
+.slide::before,.slide::after{opacity:.55}
+/* 7. Keyboard focus and controls */
+button:focus-visible,.dots button:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.controls button,.source-button{height:2.4rem}
+
+
+
+/* ===== Design fixes, pass 2 ===== */
+.title-slide .slide-content{display:flex;flex-direction:column;align-content:normal;align-items:flex-start}
+.title-slide h1{max-width:28ch;font-size:clamp(2.3rem,4.6cqw,4.8rem)}
+.title-slide .scene{grid-column:auto;grid-row:auto;width:100%;max-height:40cqh;margin-top:.5rem}
+.slide:last-child .slide-content{gap:.7rem;padding-top:3.2rem}
+.slide:last-child .closing-line{font-size:clamp(1.15rem,1.8cqw,1.6rem);padding-top:.7rem;margin-top:0}
+.slide:last-child .decision-ask{padding:.8rem 1.1rem}
+
+
+/* ===== Fixed 16:9 stage: nothing can be cut off on any screen ===== */
+html{font-size:min(1.1111vw,1.9753vh);scroll-snap-type:y mandatory}
+html,body{background:#0E2B3B}
+.slide{width:100vw;height:100vh;height:100dvh;display:grid;place-items:center}
+.stage{position:relative;width:min(100vw,177.7778vh);height:min(56.25vw,100vh);container-type:size;overflow:hidden}
+.slide::before,.slide::after{display:none}
+.stage::before{content:"";position:absolute;left:0;top:0;bottom:0;width:.7rem;background:var(--teal)}
+.stage::after{content:"";position:absolute;left:.7rem;top:0;bottom:0;width:.18rem;background:var(--amber)}
+.slide{background:var(--paper)}.slide:nth-child(even){background:var(--paper)}
+.stage{background:var(--paper)}
+.slide:nth-child(even) .stage{background:var(--paper)}
+.slide:nth-child(even) .card,.slide:nth-child(even) .track,.slide:nth-child(even) .week{background:var(--white)}
+.slide-content{padding:4.2rem 5.2rem 3.8rem 5.4rem;gap:1.4rem}
+.topline{left:5.4rem;right:5.2rem;top:1.3rem}
+.bottomline{left:5.4rem;right:11rem;bottom:1.1rem}
+/* readable, confident type */
+h2{font-size:3rem;max-width:26ch;line-height:1.1}
+.body,.list li{font-size:1.28rem}
+.lead{font-size:1.5rem}
+.card p,.track ul,.week p,.pilot-brief p,.usecase p,.case-study p{font-size:1.08rem}
+.callout,.signal-panel,.decision-ask{font-size:1.18rem}
+.scene{max-height:48cqh}
+/* cards: solid, rounded, lifted */
+.card{border:0;border-top:.22rem solid var(--amber);border-radius:.7rem;box-shadow:0 .5rem 1.4rem rgba(22,62,83,.1);padding:1.2rem 1.35rem}
+.scene-wrap,.case-study,.track,.week{border-radius:.7rem;box-shadow:0 .5rem 1.4rem rgba(22,62,83,.08)}
+.scene-wrap{border:0;border-top:.22rem solid var(--amber);background:var(--white)!important;padding:1.1rem}
+.callout{border-radius:.6rem;border-left-width:.35rem}
+/* dark, branded title slide */
+.title-slide,.title-slide .stage{background:var(--teal)}
+.title-slide .stage::before{background:var(--amber)}.title-slide .stage::after{background:rgba(255,255,255,.25)}
+.title-slide h1{color:#fff;max-width:20ch;font-size:4.6rem}
+.title-slide .lead{color:#F3D9A4}
+.title-slide .title-mark,.title-slide .brand{color:#fff}
+.title-slide .topline,.title-slide .bottomline{color:#B9CBD5}.title-slide .bottomline .num{color:#fff}
+.title-slide .scene{background:var(--paper);border-radius:.9rem;padding:1.1rem;max-height:36cqh}
+/* closing slide gets a band so it lands */
+.slide:last-child .closing-line{background:var(--teal);color:#fff;padding:.9rem 1.3rem;border:0;border-left:.4rem solid var(--amber);border-radius:.5rem}
+
+/* ===== final polish ===== */
+.bottomline{left:9.5rem;right:11rem}
+.scene-wrap{padding:1.1rem 1.1rem 1.7rem}
+.title-slide h1{font-size:4.3rem}
+.title-slide .scene{max-height:34cqh}
+.slide:last-child .slide-content{gap:.55rem;padding-top:3.4rem;padding-bottom:3.4rem}
+.slide:last-child .closing-line{font-size:1.35rem;padding:.7rem 1.2rem}
+
+/* Portrait phones: use the full viewport instead of shrinking a 16:9 stage. */
+@media (max-width:700px) and (orientation:portrait){
+  html{font-size:16px;scroll-snap-type:y mandatory}
+  .slide{width:100vw;height:100vh;height:100dvh;place-items:stretch}
+  .stage{width:100%;height:100%;container-type:normal;overflow:hidden}
+  .stage::before{width:.35rem}.stage::after{left:.35rem;width:.12rem}
+  .slide-content{position:absolute;inset:3.6rem .9rem 4.2rem 1.1rem;padding:0;gap:.7rem;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}
+  .topline{left:1.1rem;right:1rem;top:.7rem;font-size:.7rem}
+  .bottomline{left:1.1rem;right:7.2rem;bottom:.8rem;font-size:.65rem;line-height:1.25}
+  h1{font-size:clamp(2rem,9vw,3rem);line-height:1.04}
+  h2{font-size:clamp(1.45rem,6.5vw,2rem);line-height:1.12;max-width:25ch}
+  h3{font-size:1rem}
+  .eyebrow{font-size:.68rem;letter-spacing:.1em}
+  .body,.lead,.list li,.card p,.pilot-brief p,.usecase p,.case-study p{font-size:.88rem;line-height:1.38}
+  .lead{font-size:1rem}.callout,.signal-panel,.decision-ask{font-size:.88rem;line-height:1.4;padding:.65rem .75rem}
+  .scene:not(.mini-scene),.proof-visual>svg{display:none!important}
+  .mobile-brief{display:block;font-size:.86rem;line-height:1.4;padding:.7rem .8rem;background:var(--paper-deep);border-left:3px solid var(--amber);border-radius:.2rem;color:var(--ink)}
+  .title-slide .stage{background:var(--teal)}
+  .title-slide .slide-content{display:flex;align-items:flex-start;justify-content:center;padding:0}
+  .title-slide h1{font-size:clamp(2.25rem,10vw,3.2rem);max-width:13ch;color:#fff}
+  .title-slide .lead{color:#F3D9A4}
+  .title-slide .title-mark,.title-slide .brand{color:#fff}
+  .title-slide .topline,.title-slide .bottomline{color:#B9CBD5}
+  .title-slide .scene{display:none!important}
+  .grid,.case-grid,.usecase-grid,.pilot-brief,.split-scene,.visual-row{grid-template-columns:minmax(0,1fr);gap:.55rem}
+  .map-visual{display:none}
+  .pilot-brief>div{padding:.45rem 0;border:0!important}
+  .usecase{grid-template-columns:2.5rem minmax(0,1fr);padding:.55rem 0;gap:.2rem .65rem}
+  .usecase .mini-scene{width:2.3rem;height:1.7rem}
+  .usecase .tag{font-size:.68rem;white-space:normal}
+  .flow{gap:.25rem;flex-wrap:wrap}.flow .node{font-size:.68rem;padding:.35rem .45rem}.flow .arrow{font-size:.8rem}
+  .case-study{padding:.7rem .8rem}.proof-visual{min-height:2rem}
+  .decision-ask{margin:.1rem 0}.closing-line{font-size:1rem!important;padding:.65rem .75rem!important}
+  .controls{right:.65rem;bottom:.65rem;gap:.25rem}.controls button{width:2rem;height:2rem;font-size:1rem}
+  .dots{gap:.25rem}.dots button{width:.42rem;height:.42rem}
+  .source-button{height:2rem}
+}
+
+/* Short landscape phones keep the stage but reduce framing and type. */
+@media (max-height:500px) and (orientation:landscape){
+  html{font-size:12px}
+  .slide-content{padding:3.6rem 4rem 3rem 4.2rem;gap:.7rem}
+  h2{font-size:2.3rem}.title-slide h1{font-size:3.4rem}
+  .scene{max-height:38cqh}
+  .bottomline{bottom:.6rem}
+}
+</style>
+</head>
+<body>
+<div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+<nav class="dots" id="dots" aria-label="Slide navigation"></nav>
+<button class="source-button" id="sourcesOpen" type="button">Sources & notes</button>
+<main class="deck" id="deck" aria-label="BRO Technology Evolution presentation">
+
+<section class="slide title-slide" aria-label="Slide 1: The opportunity" data-title="The Opportunity">
+  <div class="topline"><span class="brand">BRO PETROLEUM SERVICES</span><span>Technology evolution</span></div>
+  <div class="slide-content">
+    <div class="title-mark reveal">OPERATIONAL PERFORMANCE</div>
+    <h1 class="reveal">Maximizing profitability by eliminating operational friction</h1>
+    <hr class="amber-rule reveal">
+    <p class="lead reveal">Operational friction consumes time, delays decisions, and can keep people and equipment from doing their highest-value work.</p>
+    <svg class="scene reveal" viewBox="0 0 900 250" role="img" aria-labelledby="s1title s1desc">
+      <title id="s1title">Operational friction around a drilling rig</title><desc id="s1desc">A custom rig silhouette connects four operational friction points: report delay, parts waiting, repeated administration, and IT disruption.</desc>
+      <path d="M65 212H830" stroke="var(--teal)" stroke-opacity=".16" stroke-width="3"/>
+      <path d="M115 210L173 80L232 210M137 161H210M150 132H197M162 104H185M173 80V54M173 54H212V78" fill="none" stroke="var(--teal)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M147 210V184H199V210M155 184V168H190V184" fill="var(--amber)" stroke="var(--teal)" stroke-width="3"/>
+      <path d="M173 47V34M155 34H191" stroke="var(--brown)" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="173" cy="211" r="11" fill="var(--amber)" stroke="var(--teal)" stroke-width="3"/>
+      <path d="M236 145C300 145 302 65 365 65M236 145C330 145 375 65 530 65M236 145C330 145 306 184 365 184M236 145C360 145 420 184 530 184" fill="none" stroke="var(--teal)" stroke-opacity=".23" stroke-width="3" stroke-dasharray="6 8"/>
+      <g><rect x="350" y="35" width="205" height="62" rx="18" fill="var(--white)" stroke="var(--teal)" stroke-opacity=".2"/><circle cx="373" cy="66" r="9" fill="var(--amber)"/><text x="394" y="63" font-size="18" font-weight="700" fill="var(--brown)">Report delay</text><text x="394" y="82" font-size="13" fill="var(--muted)">Information arrives late</text></g>
+      <g><rect x="550" y="35" width="230" height="62" rx="18" fill="var(--white)" stroke="var(--teal)" stroke-opacity=".2"/><circle cx="574" cy="66" r="9" fill="var(--amber)"/><text x="595" y="63" font-size="18" font-weight="700" fill="var(--brown)">Parts waiting</text><text x="595" y="82" font-size="13" fill="var(--muted)">Availability is hard to see</text></g>
+      <g><rect x="350" y="153" width="205" height="62" rx="18" fill="var(--white)" stroke="var(--teal)" stroke-opacity=".2"/><circle cx="373" cy="184" r="9" fill="var(--amber)"/><text x="394" y="181" font-size="18" font-weight="700" fill="var(--brown)">Repeated admin</text><text x="394" y="200" font-size="13" fill="var(--muted)">Manual follow-up</text></g>
+      <g><rect x="550" y="153" width="230" height="62" rx="18" fill="var(--white)" stroke="var(--teal)" stroke-opacity=".2"/><circle cx="574" cy="184" r="9" fill="var(--amber)"/><text x="595" y="181" font-size="18" font-weight="700" fill="var(--brown)">IT disruption</text><text x="595" y="200" font-size="13" fill="var(--muted)">Issues need earlier visibility</text></g>
+    </svg>
+    <div class="mobile-brief"><strong>Where friction costs time:</strong> late field updates; waiting on equipment, maintenance, or parts information; repeated admin and follow-up; avoidable IT disruptions. We study the work and measure the effect of improvements.</div>
+  </div>
+  <div class="bottomline"><span>Working proposal · November 2026</span><span class="num">01 / 12</span></div>
+</section>
+
+<section class="slide" aria-label="Slide 2: Our role inside BRO" data-title="Our Role Inside BRO">
+  <div class="topline"><span class="brand">BRO PETROLEUM</span><span>01 · Team model</span></div>
+  <div class="slide-content">
+    <div class="eyebrow reveal">A capability inside BRO</div><h2 class="reveal">An internal Software & IT team, built around BRO’s operations.</h2>
+    <p class="body reveal">We propose a team combining <strong>software engineering, infrastructure, DevOps/AIOps, and applied AI</strong>—working with BRO’s teams and existing IT function.</p>
+    <svg class="scene reveal" viewBox="0 0 900 190" role="img" aria-labelledby="s2title s2desc">
+      <title id="s2title">How the proposed internal team works</title><desc id="s2desc">Four connected stages: study operations, work with BRO's teams, improve early, and prepare AI opportunities.</desc>
+      <path d="M90 84H808" stroke="var(--teal)" stroke-opacity=".22" stroke-width="4"/>
+      <g><circle cx="110" cy="84" r="38" fill="var(--amber)"/><text x="110" y="91" text-anchor="middle" font-size="22" font-weight="800">01</text><text x="110" y="147" text-anchor="middle" font-size="18" font-weight="700">Study operations</text><text x="110" y="168" text-anchor="middle" font-size="13" fill="var(--muted)">Offices · rigs · support</text></g>
+      <g><circle cx="335" cy="84" r="38" fill="var(--white)" stroke="var(--teal)" stroke-width="3"/><circle cx="335" cy="84" r="25" fill="var(--paper)"/><text x="335" y="91" text-anchor="middle" font-size="22" font-weight="800">02</text><text x="335" y="147" text-anchor="middle" font-size="18" font-weight="700">Work together</text><text x="335" y="168" text-anchor="middle" font-size="13" fill="var(--muted)">Teams · existing IT</text></g>
+      <g><circle cx="560" cy="84" r="38" fill="var(--white)" stroke="var(--teal)" stroke-width="3"/><circle cx="560" cy="84" r="25" fill="var(--paper)"/><text x="560" y="91" text-anchor="middle" font-size="22" font-weight="800">03</text><text x="560" y="147" text-anchor="middle" font-size="18" font-weight="700">Improve early</text><text x="560" y="168" text-anchor="middle" font-size="13" fill="var(--muted)">Build capabilities in parallel</text></g>
+      <g><circle cx="785" cy="84" r="38" fill="var(--teal)"/><text x="785" y="91" text-anchor="middle" font-size="17" font-weight="800" fill="var(--white)">AI</text><text x="785" y="147" text-anchor="middle" font-size="18" font-weight="700">Prepare ahead</text><text x="785" y="168" text-anchor="middle" font-size="13" fill="var(--muted)">Pilot when evidence supports it</text></g>
+    </svg>
+    <div class="mobile-brief"><strong>Study → work together → improve early → prepare AI opportunities</strong></div>
+    <p class="callout reveal"><strong>First proof point:</strong> One rig · One workflow · 30 days—with baseline, scope, owner, price, and success measures agreed first.</p>
+  </div>
+  <div class="bottomline"><span>Proposed internal team model</span><span class="num">02 / 12</span></div>
+</section>
+
+<section class="slide" aria-label="Slide 3: Understand BRO first" data-title="Understand BRO First">
+  <div class="topline"><span class="brand">BRO PETROLEUM</span><span>02 · Operations study</span></div>
+  <div class="slide-content">
+    <div class="eyebrow reveal">Start with the real work</div><h2 class="reveal">Study how BRO works before deciding what to build.</h2>
+    <p class="body reveal">Supplied public information describes BRO’s drilling and workover operations, multiple rigs and locations, QHSE/IMS commitments, equipment and spare-parts activities, and recruitment needs. The study maps how work actually happens and where delays or duplicate effort occur.</p>
+    <div class="split-scene reveal">
+      <div class="scene-wrap map-visual">
+        <svg class="scene" viewBox="0 0 700 350" role="img" aria-labelledby="s3title s3desc">
+          <title id="s3title">BRO operations study map</title><desc id="s3desc">BRO operations at the centre connect field and reporting, equipment and stores, people and assurance, and systems and clients across office and rig locations.</desc>
+          <path d="M350 175L160 75M350 175L540 75M350 175L160 275M350 175L540 275" stroke="var(--teal)" stroke-opacity=".2" stroke-width="3"/>
+          <circle cx="350" cy="175" r="74" fill="var(--teal)"/><text x="350" y="169" text-anchor="middle" font-size="19" font-weight="800" fill="var(--white)">BRO</text><text x="350" y="193" text-anchor="middle" font-size="14" fill="var(--white)">Operations</text>
+          <g><circle cx="160" cy="75" r="55" fill="var(--white)" stroke="var(--amber)" stroke-width="4"/><text x="160" y="70" text-anchor="middle" font-size="14" font-weight="700">Field &</text><text x="160" y="89" text-anchor="middle" font-size="14" font-weight="700">reporting</text></g>
+          <g><circle cx="540" cy="75" r="55" fill="var(--white)" stroke="var(--amber)" stroke-width="4"/><text x="540" y="70" text-anchor="middle" font-size="14" font-weight="700">Equipment</text><text x="540" y="89" text-anchor="middle" font-size="14" font-weight="700">& stores</text></g>
+          <g><circle cx="160" cy="275" r="55" fill="var(--white)" stroke="var(--teal)" stroke-opacity=".3" stroke-width="3"/><text x="160" y="270" text-anchor="middle" font-size="14" font-weight="700">People &</text><text x="160" y="289" text-anchor="middle" font-size="14" font-weight="700">assurance</text></g>
+          <g><circle cx="540" cy="275" r="55" fill="var(--white)" stroke="var(--teal)" stroke-opacity=".3" stroke-width="3"/><text x="540" y="270" text-anchor="middle" font-size="14" font-weight="700">Systems &</text><text x="540" y="289" text-anchor="middle" font-size="14" font-weight="700">clients</text></g>
+          <text x="350" y="330" text-anchor="middle" font-size="13" fill="var(--muted)">Rig sites · Cairo · Attaqa/Suez · other locations to confirm</text>
+        </svg>
+      </div>
+      <div><p class="panel-title">The study maps</p><ul class="list" style="margin-top:.7rem"><li>How information moves between field, offices, management, and clients.</li><li>How rigs, equipment, maintenance, inspections, and parts are managed.</li><li>How QHSE, recruitment, competencies, and approvals work.</li><li>Which systems support the work—and where delays or duplicate effort occur.</li><li>Which improvements could strengthen current services or enable additional client offerings.</li></ul></div>
+    </div>
+    <div class="mobile-brief"><strong>Study across:</strong> field and reporting · equipment and stores · people and assurance · systems and clients.</div>
+    <p class="callout reveal">The study confirms workflows, systems, constraints, owners, and priorities with BRO.</p>
+  </div>
+  <div class="bottomline"><span>Location and workflow details to confirm with BRO</span><span class="num">03 / 12</span></div>
+</section>
+
+<section class="slide" aria-label="Slide 4: Find the first high-value workflow" data-title="Find the First Workflow">
+  <div class="topline"><span class="brand">BRO PETROLEUM</span><span>03 · Choose & measure</span></div>
+  <div class="slide-content">
+    <div class="eyebrow reveal">Study · choose · measure</div><h2 class="reveal">Study the operations. Choose a priority. Measure the change.</h2>
+    <p class="lead reveal">Candidate first pilot: digital daily reporting on one rig, subject to the operations study and BRO’s priorities. Confirm rig suitability with BRO; BRO4 is only a candidate if its current status supports the pilot.</p>
+    <svg class="scene reveal" viewBox="0 0 1000 190" role="img" aria-labelledby="s4title s4desc">
+      <title id="s4title">Study, baseline, and measure the pilot workflow</title><desc id="s4desc">The current rig-report process is documented. BRO and the team agree baseline and target measures, then run a digital-report pilot and compare its results.</desc>
+      <rect x="20" y="25" width="350" height="140" rx="20" fill="var(--white)" stroke="var(--teal)" stroke-opacity=".18" stroke-width="2"/><text x="50" y="56" font-size="14" font-weight="800" fill="var(--brown)">CURRENT WORKFLOW · STUDY</text>
+      <rect x="50" y="82" width="110" height="48" rx="12" fill="var(--paper)" stroke="var(--teal)" stroke-opacity=".2"/><text x="105" y="111" text-anchor="middle" font-size="13" font-weight="700">Rig report</text>
+      <path d="M165 106H202" stroke="var(--amber)" stroke-width="4"/><path d="M195 99L204 106L195 113" fill="none" stroke="var(--amber)" stroke-width="4"/>
+      <rect x="210" y="82" width="130" height="48" rx="12" fill="var(--paper)" stroke="var(--teal)" stroke-opacity=".2"/><text x="275" y="103" text-anchor="middle" font-size="12" font-weight="700">Manual handoffs</text><text x="275" y="119" text-anchor="middle" font-size="11" fill="var(--muted)">delay · re-entry</text>
+      <path d="M376 106H400" stroke="var(--amber)" stroke-width="4"/><path d="M394 99L403 106L394 113" fill="none" stroke="var(--amber)" stroke-width="4"/>
+      <rect x="410" y="70" width="180" height="72" rx="16" fill="var(--paper-deep)" stroke="var(--amber)" stroke-width="2"/><circle cx="434" cy="106" r="13" fill="var(--amber)"/><text x="434" y="111" text-anchor="middle" font-size="13" font-weight="800">1</text><text x="454" y="99" font-size="12" font-weight="800">STUDY</text><text x="454" y="119" font-size="10" fill="var(--muted)">Baseline + target measures</text>
+      <path d="M595 106H620" stroke="var(--amber)" stroke-width="4"/><path d="M614 99L623 106L614 113" fill="none" stroke="var(--amber)" stroke-width="4"/>
+      <rect x="630" y="25" width="350" height="140" rx="20" fill="var(--white)" stroke="var(--amber)" stroke-width="3"/><text x="660" y="56" font-size="14" font-weight="800" fill="var(--brown)">PROPOSED PILOT · MEASURE</text>
+      <rect x="660" y="82" width="126" height="48" rx="12" fill="var(--teal)"/><text x="723" y="111" text-anchor="middle" font-size="13" font-weight="700" fill="var(--white)">Digital report</text>
+      <path d="M792 106H824" stroke="var(--amber)" stroke-width="4"/><path d="M818 99L827 106L818 113" fill="none" stroke="var(--amber)" stroke-width="4"/>
+      <rect x="835" y="82" width="125" height="48" rx="12" fill="var(--paper)"/><text x="897" y="102" text-anchor="middle" font-size="11" font-weight="700">Time · completeness</text><text x="897" y="118" text-anchor="middle" font-size="11" fill="var(--muted)">corrections · adoption</text>
+    </svg>
+    <div class="mobile-brief"><strong>Candidate:</strong> Digital daily reporting on one rig, if selected after discovery. Measure completion time, delay to management, completeness, corrections, and adoption. Estimate financial impact using BRO’s own costs.</div>
+    <p class="callout reveal">Estimate financial impact with BRO’s own operating and labor costs, after measuring the operational change.</p>
+  </div>
+  <div class="bottomline"><span>Baseline and targets agreed before the pilot</span><span class="num">04 / 12</span></div>
+</section>
+
+<section class="slide" aria-label="Slide 5: Fit BRO systems and IT" data-title="Systems and IT">
+  <div class="topline"><span class="brand">BRO PETROLEUM</span><span>04 · Systems fit</span></div>
+  <div class="slide-content">
+    <div class="eyebrow reveal">Integrate with the actual environment</div><h2 class="reveal">Build on what works. Fix gaps with evidence.</h2>
+    <div class="visual-row reveal">
+      <ul class="list">
+        <li>Assess BRO’s ERP and current systems before recommending changes.</li>
+        <li><strong>Integrate suitable systems</strong>; configure, extend, or replace only when discovery supports it.</li>
+        <li>Work alongside the existing IT employee with clear responsibilities and escalation.</li>
+        <li>Review monitoring, backups, restore tests, access, hosting, and connectivity.</li>
+        <li>Agree data/code ownership, documentation, and handover.</li>
+      </ul>
+      <div class="scene-wrap map-visual"><svg class="scene" viewBox="0 0 560 300" role="img" aria-labelledby="s5title s5desc">
+        <title id="s5title">Systems and teams connected</title><desc id="s5desc">BRO's existing systems, the existing IT function, and the internal engineering team connect through shared assessment and agreed ownership.</desc>
+        <circle cx="280" cy="145" r="64" fill="var(--teal)"/><text x="280" y="140" text-anchor="middle" font-size="17" font-weight="800" fill="var(--white)">BRO</text><text x="280" y="163" text-anchor="middle" font-size="13" fill="var(--white)">Operations</text>
+        <path d="M233 100L155 55M327 100L405 55M233 190L155 238M327 190L405 238" stroke="var(--teal)" stroke-opacity=".35" stroke-width="3"/>
+        <rect x="54" y="28" width="155" height="56" rx="15" fill="var(--white)" stroke="var(--amber)" stroke-width="3"/><text x="131" y="62" text-anchor="middle" font-size="14" font-weight="700">Current systems</text>
+        <rect x="351" y="28" width="155" height="56" rx="15" fill="var(--white)" stroke="var(--amber)" stroke-width="3"/><text x="428" y="62" text-anchor="middle" font-size="14" font-weight="700">Existing IT</text>
+        <rect x="54" y="216" width="155" height="56" rx="15" fill="var(--white)" stroke="var(--teal)" stroke-opacity=".25" stroke-width="2"/><text x="131" y="250" text-anchor="middle" font-size="14" font-weight="700">Data & access</text>
+        <rect x="351" y="216" width="155" height="56" rx="15" fill="var(--white)" stroke="var(--teal)" stroke-opacity=".25" stroke-width="2"/><text x="428" y="250" text-anchor="middle" font-size="14" font-weight="700">Engineering team</text>
+        <circle cx="280" cy="48" r="7" fill="var(--amber)"/><circle cx="280" cy="244" r="7" fill="var(--amber)"/>
+      </svg></div>
+    </div>
+    <p class="callout reveal">Strengthen BRO’s current IT capability; fit the solution to the systems, people, and locations already in place.</p>
+  </div>
+  <div class="bottomline"><span>No technology choice before assessment</span><span class="num">05 / 12</span></div>
+</section>
+
+<section class="slide" aria-label="Slide 6: Two tracks" data-title="Two Tracks">
+  <div class="topline"><span class="brand">BRO PETROLEUM</span><span>05 · Parallel delivery</span></div>
+  <div class="slide-content">
+    <div class="eyebrow reveal">The delivery model</div><h2 class="reveal">Improve today’s work while building tomorrow’s capabilities.</h2>
+    <svg class="scene reveal" viewBox="0 0 1000 330" role="img" aria-labelledby="s6title s6desc">
+      <title id="s6title">Three workstreams progressing in parallel</title><desc id="s6desc">Immediate improvements and connected foundations both move from near-term work to capability expansion. AI and client-service readiness is assessed alongside them and validated before use.</desc>
+      <text x="345" y="25" text-anchor="middle" font-size="12" font-weight="800" fill="var(--brown)">NOW</text><text x="585" y="25" text-anchor="middle" font-size="12" font-weight="800" fill="var(--brown)">BUILD</text><text x="825" y="25" text-anchor="middle" font-size="12" font-weight="800" fill="var(--brown)">EXTEND</text>
+      <text x="22" y="68" font-size="14" font-weight="800">IMMEDIATE</text><text x="22" y="87" font-size="14" font-weight="800">IMPROVEMENTS</text>
+      <rect x="235" y="43" width="220" height="66" rx="12" fill="var(--white)" stroke="var(--amber)" stroke-width="2"/><text x="250" y="69" font-size="12" font-weight="700">Pilot one priority workflow</text><text x="250" y="88" font-size="11" fill="var(--muted)">e.g. daily reporting</text>
+      <path d="M457 76H472" stroke="var(--amber)" stroke-width="3"/><path d="M466 70L474 76L466 82" fill="none" stroke="var(--amber)" stroke-width="3"/>
+      <rect x="480" y="43" width="220" height="66" rx="12" fill="var(--white)" stroke="var(--amber)" stroke-width="2"/><text x="495" y="69" font-size="12" font-weight="700">Monitoring, backups</text><text x="495" y="88" font-size="11" fill="var(--muted)">and a user-chosen task</text>
+      <path d="M702 76H717" stroke="var(--amber)" stroke-width="3"/><path d="M711 70L719 76L711 82" fill="none" stroke="var(--amber)" stroke-width="3"/>
+      <rect x="725" y="43" width="250" height="66" rx="12" fill="var(--white)" stroke="var(--amber)" stroke-width="2"/><text x="740" y="69" font-size="12" font-weight="700">Improve rig website information</text><text x="740" y="88" font-size="11" fill="var(--muted)">if BRO identifies the need</text>
+      <text x="22" y="148" font-size="14" font-weight="800">CONNECTED</text><text x="22" y="167" font-size="14" font-weight="800">FOUNDATION</text>
+      <rect x="235" y="123" width="220" height="66" rx="12" fill="var(--white)" stroke="var(--teal)" stroke-width="2"/><text x="250" y="149" font-size="12" font-weight="700">Map systems and workflows</text><text x="250" y="168" font-size="11" fill="var(--muted)">confirm integration needs</text>
+      <path d="M457 156H472" stroke="var(--teal)" stroke-width="3"/><path d="M466 150L474 156L466 162" fill="none" stroke="var(--teal)" stroke-width="3"/>
+      <rect x="480" y="123" width="220" height="66" rx="12" fill="var(--white)" stroke="var(--teal)" stroke-width="2"/><text x="495" y="149" font-size="12" font-weight="700">Connect selected workflows</text><text x="495" y="168" font-size="11" fill="var(--muted)">rigs · maintenance · inventory</text>
+      <path d="M702 156H717" stroke="var(--teal)" stroke-width="3"/><path d="M711 150L719 156L711 162" fill="none" stroke="var(--teal)" stroke-width="3"/>
+      <rect x="725" y="123" width="250" height="66" rx="12" fill="var(--white)" stroke="var(--teal)" stroke-width="2"/><text x="740" y="149" font-size="12" font-weight="700">Expand by agreed priorities</text><text x="740" y="168" font-size="11" fill="var(--muted)">QHSE · recruitment · access · audit</text>
+      <text x="22" y="241" font-size="14" font-weight="800" fill="var(--brown)">AI &amp; SERVICE</text><text x="22" y="260" font-size="14" font-weight="800" fill="var(--brown)">READINESS</text>
+      <rect x="235" y="211" width="220" height="74" rx="12" fill="var(--paper-deep)" stroke="var(--amber)" stroke-width="2"/><text x="250" y="239" font-size="12" font-weight="700">Assess use case, data</text><text x="250" y="258" font-size="11" fill="var(--muted)">rights, and privacy</text>
+      <path d="M457 248H472" stroke="var(--amber)" stroke-width="3" stroke-dasharray="5 4"/><path d="M466 242L474 248L466 254" fill="none" stroke="var(--amber)" stroke-width="3"/>
+      <rect x="480" y="211" width="220" height="74" rx="12" fill="var(--paper-deep)" stroke="var(--amber)" stroke-width="2"/><text x="495" y="239" font-size="12" font-weight="700">Agree measures and test</text><text x="495" y="258" font-size="11" fill="var(--muted)">with BRO data and review</text>
+      <path d="M702 248H717" stroke="var(--amber)" stroke-width="3" stroke-dasharray="5 4"/><path d="M711 242L719 248L711 254" fill="none" stroke="var(--amber)" stroke-width="3"/>
+      <rect x="725" y="211" width="250" height="74" rx="12" fill="var(--teal)"/><text x="850" y="239" text-anchor="middle" font-size="12" font-weight="800" fill="var(--white)">VALIDATE BEFORE USE</text><text x="850" y="258" text-anchor="middle" font-size="11" fill="var(--white)">internal · potential client service</text>
+    </svg>
+    <div class="mobile-brief"><strong>In parallel:</strong> immediate workflow, monitoring, website, and task improvements; shared foundations for operations, maintenance, inventory, QHSE, recruitment, access, and audit; assess AI data, privacy, measures, and client-service opportunities early.</div>
+    <p class="signal-panel reveal">Start useful work early. Build shared capability in parallel. Expand from evidence and BRO’s priorities.</p>
+  </div>
+  <div class="bottomline"><span>Priorities and sequence agreed with BRO</span><span class="num">06 / 12</span></div>
+</section>
+
+<section class="slide" aria-label="Slide 7: First 30 days" data-title="First 30 Days">
+  <div class="topline"><span class="brand">BRO PETROLEUM</span><span>06 · The pilot</span></div>
+  <div class="slide-content">
+    <div class="eyebrow reveal">One rig · One workflow</div><h2 class="reveal">One rig. One workflow. A measured first result.</h2>
+    <p class="body reveal">Proposed pilot: digital daily reporting on one rig, if confirmed as a priority. Select a suitable rig with BRO; BRO4 is a candidate only if its current status supports the pilot.</p><p class="body reveal"><strong>Weeks:</strong> 1—study, map workflow, baseline, agree criteria; 2–3—build agreed workflow, offline support if needed, access controls, and training; 4—run and measure adoption and reporting outcomes. Measures: completion time · delay · completeness · corrections · adoption.</p>
+    <svg class="scene reveal" viewBox="0 0 900 180" role="img" aria-labelledby="s7title s7desc">
+      <title id="s7title">Four-week pilot plan</title><desc id="s7desc">Week one studies the reporting process and baseline, weeks two and three build the pilot, week four runs and measures it.</desc>
+      <path d="M100 58H800" stroke="var(--teal)" stroke-opacity=".22" stroke-width="5"/><path d="M100 58H800" stroke="var(--amber)" stroke-width="3" stroke-dasharray="5 12"/>
+      <g><circle cx="120" cy="58" r="26" fill="var(--teal)"/><text x="120" y="64" text-anchor="middle" font-size="16" font-weight="800" fill="var(--white)">01</text><text x="120" y="105" text-anchor="middle" font-size="15" font-weight="800">STUDY</text><text x="120" y="127" text-anchor="middle" font-size="12" fill="var(--muted)">Workflow + baseline</text></g>
+      <g><circle cx="380" cy="58" r="26" fill="var(--amber)"/><text x="380" y="64" text-anchor="middle" font-size="16" font-weight="800">02</text><text x="380" y="105" text-anchor="middle" font-size="15" font-weight="800">BUILD</text><text x="380" y="127" text-anchor="middle" font-size="12" fill="var(--muted)">Weeks 2–3 · configure</text></g>
+      <g><circle cx="640" cy="58" r="26" fill="var(--amber)"/><text x="640" y="64" text-anchor="middle" font-size="16" font-weight="800">03</text><text x="640" y="105" text-anchor="middle" font-size="15" font-weight="800">RUN</text><text x="640" y="127" text-anchor="middle" font-size="12" fill="var(--muted)">User tryout</text></g>
+      <g><circle cx="800" cy="58" r="26" fill="var(--teal)"/><text x="800" y="64" text-anchor="middle" font-size="16" font-weight="800" fill="var(--white)">04</text><text x="800" y="105" text-anchor="middle" font-size="15" font-weight="800">MEASURE</text><text x="800" y="127" text-anchor="middle" font-size="12" fill="var(--muted)">Compare results</text></g>
+    </svg>
+    <div class="mobile-brief"><strong>30-day path:</strong> study and baseline → build → user tryout → compare results.</div>
+    <div class="pilot-brief reveal">
+      <div><span class="term-label">Team delivers</span><p>Working pilot, measured results, technical notes, and a costed next step.</p></div>
+      <div><span class="term-label">BRO provides</span><p>Sponsor, process owner, selected users, IT contact, and approved reports.</p></div>
+      <div><span class="term-label">Agree before start</span><p>Pilot scope, price, owner, acceptance criteria, data/access, support, and handover to be agreed with BRO before start.</p></div>
+    </div>
+  </div>
+  <div class="bottomline"><span>Any rig selection and targets require BRO confirmation</span><span class="num">07 / 12</span></div>
+</section>
+
+<section class="slide" aria-label="Slide 8: Why our approach fits BRO" data-title="Why This Approach">
+  <div class="topline"><span class="brand">BRO PETROLEUM</span><span>07 · Why this approach</span></div>
+  <div class="slide-content">
+    <div class="eyebrow reveal">A working relationship</div><h2 class="reveal">One team, close to the work, building with BRO.</h2>
+    <div class="split-scene reveal">
+      <svg class="scene" viewBox="0 0 540 330" role="img" aria-labelledby="s8title s8desc">
+        <title id="s8title">Internal team relationship</title><desc id="s8desc">BRO operations, existing IT, and the proposed internal engineering team work together around a shared operating model.</desc>
+        <circle cx="270" cy="162" r="75" fill="var(--teal)"/><text x="270" y="157" text-anchor="middle" font-size="19" font-weight="800" fill="var(--white)">BRO</text><text x="270" y="181" text-anchor="middle" font-size="13" fill="var(--white)">Operations</text>
+        <path d="M216 124L135 74M324 124L405 74M270 237V280" fill="none" stroke="var(--amber)" stroke-width="5"/>
+        <rect x="39" y="30" width="195" height="68" rx="18" fill="var(--white)" stroke="var(--teal)" stroke-opacity=".25" stroke-width="2"/><text x="136" y="59" text-anchor="middle" font-size="15" font-weight="800">Existing IT</text><text x="136" y="79" text-anchor="middle" font-size="12" fill="var(--muted)">Continuity · partnership</text>
+        <rect x="306" y="30" width="195" height="68" rx="18" fill="var(--white)" stroke="var(--amber)" stroke-width="3"/><text x="403" y="59" text-anchor="middle" font-size="15" font-weight="800">Internal team</text><text x="403" y="79" text-anchor="middle" font-size="12" fill="var(--muted)">Software · infra · AI</text>
+        <rect x="168" y="270" width="204" height="52" rx="16" fill="var(--paper)" stroke="var(--teal)" stroke-opacity=".2"/><text x="270" y="302" text-anchor="middle" font-size="14" font-weight="800">BRO ownership</text>
+      </svg>
+      <div class="mobile-brief"><strong>BRO operations ↔ existing IT ↔ internal team</strong></div>
+      <div class="scene-wrap"><p class="panel-title">Why this model fits</p><ul class="list" style="margin-top:.7rem"><li><strong>Close to operations:</strong> study workflows across offices, rigs, and locations.</li><li><strong>Connected skills:</strong> consider software, infrastructure, AIOps, and AI together.</li><li><strong>Continuity:</strong> learn from users and improve systems as needs change.</li><li><strong>BRO ownership:</strong> keep knowledge, documentation, and systems within BRO.</li></ul></div>
+    <p class="callout reveal">We want to become part of the team that helps BRO operate better today and prepare for its next stage of growth.</p>
+  </div>
+  <div class="bottomline"><span>Internal team model · in partnership with existing IT</span><span class="num">08 / 12</span></div>
+</section>
+
+<section class="slide" aria-label="Slide 9: Value for BRO and clients" data-title="BRO and Client Value">
+  <div class="topline"><span class="brand">BRO PETROLEUM</span><span>08 · Value and growth</span></div>
+  <div class="slide-content">
+    <div class="eyebrow reveal">From internal improvement to new options</div><h2 class="reveal">Improve internal operations. Create options for better client services.</h2>
+    <div class="split-scene reverse reveal">
+      <svg class="scene" viewBox="0 0 560 300" role="img" aria-labelledby="s9title s9desc">
+        <title id="s9title">Operational improvements create validated service options</title><desc id="s9desc">Management, operations, and IT improvements feed a validation step with BRO. Validated capability can improve BRO operations and may support potential client services.</desc>
+        <rect x="18" y="20" width="196" height="68" rx="15" fill="var(--white)" stroke="var(--teal)" stroke-opacity=".22" stroke-width="2"/><text x="36" y="47" font-size="14" font-weight="800">Management</text><text x="36" y="69" font-size="11" fill="var(--muted)">Clearer operational visibility</text>
+        <rect x="18" y="116" width="196" height="68" rx="15" fill="var(--white)" stroke="var(--teal)" stroke-opacity=".22" stroke-width="2"/><text x="36" y="143" font-size="14" font-weight="800">Operations</text><text x="36" y="165" font-size="11" fill="var(--muted)">Less chasing · simpler reports</text>
+        <rect x="18" y="212" width="196" height="68" rx="15" fill="var(--white)" stroke="var(--teal)" stroke-opacity=".22" stroke-width="2"/><text x="36" y="239" font-size="14" font-weight="800">IT &amp; support</text><text x="36" y="261" font-size="11" fill="var(--muted)">Capacity · monitoring · records</text>
+        <path d="M214 54H232M214 150H232M214 246H232M232 54V246M232 150H250" fill="none" stroke="var(--amber)" stroke-width="3"/><path d="M243 143L252 150L243 157" fill="none" stroke="var(--amber)" stroke-width="3"/>
+        <rect x="258" y="108" width="146" height="84" rx="16" fill="var(--teal)"/><text x="331" y="141" text-anchor="middle" font-size="13" font-weight="800" fill="var(--white)">VALIDATE</text><text x="331" y="162" text-anchor="middle" font-size="12" fill="var(--white)">with BRO</text><text x="331" y="179" text-anchor="middle" font-size="10" fill="var(--white)">demand · data · readiness</text>
+        <path d="M404 150H420M420 88V212M420 88H432M420 212H432" fill="none" stroke="var(--amber)" stroke-width="3"/><path d="M425 82L433 88L425 94M425 206L433 212L425 218" fill="none" stroke="var(--amber)" stroke-width="3"/>
+        <rect x="438" y="54" width="110" height="68" rx="14" fill="var(--paper-deep)" stroke="var(--teal)" stroke-width="2"/><text x="493" y="80" text-anchor="middle" font-size="11" font-weight="800">IMPROVED</text><text x="493" y="98" text-anchor="middle" font-size="11" font-weight="800">BRO OPERATIONS</text>
+        <rect x="438" y="178" width="110" height="68" rx="14" fill="var(--amber)"/><text x="493" y="204" text-anchor="middle" font-size="11" font-weight="800" fill="var(--teal)">POTENTIAL</text><text x="493" y="222" text-anchor="middle" font-size="11" font-weight="800" fill="var(--teal)">CLIENT SERVICES</text>
+      </svg>
+      <div><p class="body"><strong>Management:</strong> clearer visibility. <strong>Operations:</strong> less chasing and simpler reporting. <strong>Maintenance, stores, QHSE, and HR:</strong> organized records. <strong>IT:</strong> engineering capacity, monitoring, and documentation. <strong>Clients:</strong> potential for timely reporting, operational visibility, and data-enabled services where they see value and authorize them.</p><p class="body">After BRO approval and validation, digital reporting, analytics, remote monitoring, or AI-assisted safety and equipment insights could enhance existing services or support additional offerings.</p></div>
+    </div>
+    <p class="callout reveal"><strong>Before offering a new service:</strong> Confirm client demand, contract scope, data rights, privacy, technical readiness, and support responsibilities.</p>
+  </div>
+  <div class="bottomline"><span>Potential opportunity, not assumed demand</span><span class="num">09 / 12</span></div>
+</section>
+
+<section class="slide" aria-label="Slide 10: AI opportunities" data-title="AI Opportunities">
+  <div class="topline"><span class="brand">BRO PETROLEUM</span><span>09 · AI opportunities</span></div>
+  <div class="slide-content">
+    <div class="eyebrow reveal">Assess early · validate before use</div><h2 class="reveal">Build AI that helps BRO operate better and serve clients differently.</h2>
+    <div class="usecase-grid reveal">
+      <article class="usecase"><svg class="mini-scene" viewBox="0 0 80 54" role="img" aria-label="Report analytics chart"><path d="M8 45H73M12 39L29 30L42 35L64 13" fill="none" stroke="var(--teal)" stroke-width="3"/><circle cx="29" cy="30" r="4" fill="var(--amber)"/><circle cx="64" cy="13" r="5" fill="var(--amber)"/><path d="M58 13H64V19" fill="none" stroke="var(--brown)" stroke-width="2"/></svg><h3>Drilling-report analytics</h3><p>Find recurring NPT causes and patterns.</p><span class="tag">Needs consistent reports &amp; classifications</span></article>
+      <article class="usecase"><svg class="mini-scene" viewBox="0 0 80 54" role="img" aria-label="Knowledge documents"><path d="M18 8H50L62 20V46H18Z" fill="var(--white)" stroke="var(--teal)" stroke-width="2.5"/><path d="M50 8V20H62M26 28H52M26 35H52M26 42H44" stroke="var(--teal)" stroke-width="2"/><circle cx="58" cy="38" r="12" fill="var(--amber)" stroke="var(--white)" stroke-width="2"/><path d="M55 38L58 41L63 35" fill="none" stroke="var(--brown)" stroke-width="2"/></svg><h3>Knowledge assistant</h3><p>Answer from approved manuals with source references.</p><span class="tag">Needs current documents &amp; permissions</span></article>
+      <article class="usecase"><svg class="mini-scene" viewBox="0 0 80 54" role="img" aria-label="Safety camera concept"><path d="M10 17H49L58 24V41H10Z" fill="var(--white)" stroke="var(--teal)" stroke-width="2.5"/><circle cx="32" cy="29" r="10" fill="var(--paper)" stroke="var(--amber)" stroke-width="4"/><path d="M58 28L72 21V44L58 37Z" fill="var(--teal)"/><circle cx="32" cy="29" r="3" fill="var(--teal)"/></svg><h3>Safety vision</h3><p>Flag possible PPE or restricted-zone issues.</p><span class="tag">Needs cameras, privacy & review</span></article>
+      <article class="usecase"><svg class="mini-scene" viewBox="0 0 80 54" role="img" aria-label="Equipment condition signal"><path d="M12 43H68M18 43V28H31V43M31 35H44V43M44 26H60V43" fill="none" stroke="var(--teal)" stroke-width="3"/><path d="M14 18C22 9 29 27 38 18S54 9 66 18" fill="none" stroke="var(--amber)" stroke-width="3" stroke-linecap="round"/><circle cx="66" cy="18" r="4" fill="var(--brown)"/></svg><h3>Predictive maintenance</h3><p>Identify abnormal equipment patterns.</p><span class="tag">Needs reliable history and/or sensors</span></article>
+    </div>
+    <div class="flow reveal"><span class="node">BRO data & rights</span><span class="arrow">→</span><span class="node">Test & human review</span><span class="arrow">→</span><span class="node">Approved pilot</span></div>
+    <p class="callout reveal">Define the business problem, confirm data rights and safeguards, agree usefulness measures, test on BRO data, and have the relevant BRO owner review outputs. Agree privacy rules before camera use. AI supports employees; people retain responsibility for safety and operational decisions. No client-facing AI service is offered until BRO validates and approves its scope.</p>
+  </div>
+  <div class="bottomline"><span>Use cases and readiness to be confirmed with BRO</span><span class="num">10 / 12</span></div>
+</section>
+
+<section class="slide" aria-label="Slide 11: Industry signals" data-title="Industry Signals">
+  <div class="topline"><span class="brand">BRO PETROLEUM</span><span>10 · Industry context</span></div>
+  <div class="slide-content">
+    <div class="eyebrow reveal">Reported examples · not BRO forecasts</div><h2 class="reveal">Digital operations are creating new ways to support the field.</h2>
+    <div class="case-grid reveal">
+      <article class="case-study"><span class="tag">KHALDA / APACHE</span><div class="proof-visual"><svg viewBox="0 0 100 70" role="img" aria-label="Remote monitoring center illustration"><rect x="7" y="9" width="86" height="52" rx="8" fill="var(--paper)" stroke="var(--teal)" stroke-width="2"/><path d="M16 46L29 37L41 41L58 23L73 30L84 18" fill="none" stroke="var(--amber)" stroke-width="3"/><circle cx="29" cy="37" r="3" fill="var(--teal)"/><circle cx="58" cy="23" r="3" fill="var(--teal)"/><path d="M35 62V67M65 62V67M25 67H75" stroke="var(--teal)" stroke-width="2"/></svg><div><div class="proof-stat">24 → &lt;16 min</div><div class="proof-caption">Pipe-connection time, per public reporting</div></div></div><h3>Remote drilling monitoring</h3><p>Monitoring and operational changes contributed. Do not attribute the result to AI alone.</p></article>
+      <article class="case-study"><span class="tag">NABORS · VENDOR CASE STUDY</span><div class="proof-visual"><svg viewBox="0 0 100 70" role="img" aria-label="Four rigs and twelve pumps illustration"><path d="M13 58L22 16L31 58M17 39H27M20 27H25M22 16V10M22 10H30V19M43 58L52 16L61 58M47 39H57M50 27H55M52 16V10M52 10H60V19M73 58L82 16L91 58M77 39H87M80 27H85M82 16V10M82 10H90V19" fill="none" stroke="var(--teal)" stroke-width="2.5"/><circle cx="22" cy="61" r="4" fill="var(--amber)"/><circle cx="52" cy="61" r="4" fill="var(--amber)"/><circle cx="82" cy="61" r="4" fill="var(--amber)"/></svg><div><div class="proof-stat">~$320K</div><div class="proof-caption">Reported avoided cost and downtime</div></div></div><h3>Predictive maintenance pilot</h3><p>Five months · 12 mud pumps · four rigs, according to the vendor case study.</p></article>
+    </div>
+    <p class="callout reveal">These cases show what others report. BRO’s opportunity and results must be established using BRO’s operations and data.</p>
+    <p class="body reveal" style="font-size:var(--small-size)">Sources: Amwal Al Ghad (Khalda); KCF Technologies case study (Nabors). Verify wording and scope before presenting.</p>
+  </div>
+  <div class="bottomline"><span>Third-party reporting; scope and attribution retained</span><span class="num">11 / 12</span></div>
+</section>
+
+<section class="slide" aria-label="Slide 12: The next decision" data-title="The Next Decision">
+  <div class="topline"><span class="brand">BRO PETROLEUM</span><span>11 · Next decision</span></div>
+  <div class="slide-content">
+    <div class="eyebrow reveal">A focused next step</div><h2 class="reveal">Study BRO’s operations. Agree the pilot. Build the team model.</h2>
+    <svg class="scene reveal" viewBox="0 0 900 140" role="img" aria-labelledby="s12title s12desc">
+      <title id="s12title">Decision path</title><desc id="s12desc">Study BRO operations, select a priority, pilot one workflow, measure the result, and decide the next step.</desc>
+      <path d="M80 61H820" stroke="var(--teal)" stroke-opacity=".2" stroke-width="5"/><path d="M80 61H820" stroke="var(--amber)" stroke-width="3" stroke-dasharray="6 10"/>
+      <g><circle cx="90" cy="61" r="24" fill="var(--teal)"/><text x="90" y="67" text-anchor="middle" font-size="15" font-weight="800" fill="var(--white)">1</text><text x="90" y="108" text-anchor="middle" font-size="13" font-weight="800">STUDY</text></g>
+      <g><circle cx="270" cy="61" r="24" fill="var(--white)" stroke="var(--teal)" stroke-width="3"/><text x="270" y="67" text-anchor="middle" font-size="15" font-weight="800">2</text><text x="270" y="108" text-anchor="middle" font-size="13" font-weight="800">SELECT</text></g>
+      <g><circle cx="450" cy="61" r="24" fill="var(--amber)"/><text x="450" y="67" text-anchor="middle" font-size="15" font-weight="800">3</text><text x="450" y="108" text-anchor="middle" font-size="13" font-weight="800">PILOT</text></g>
+      <g><circle cx="630" cy="61" r="24" fill="var(--white)" stroke="var(--teal)" stroke-width="3"/><text x="630" y="67" text-anchor="middle" font-size="15" font-weight="800">4</text><text x="630" y="108" text-anchor="middle" font-size="13" font-weight="800">MEASURE</text></g>
+      <g><circle cx="810" cy="61" r="24" fill="var(--teal)"/><text x="810" y="67" text-anchor="middle" font-size="15" font-weight="800" fill="var(--white)">5</text><text x="810" y="108" text-anchor="middle" font-size="13" font-weight="800">DECIDE</text></g>
+    </svg>
+    <div class="mobile-brief"><strong>Next:</strong> study workflows with Operations, IT, and process owners; agree the team’s relationship with existing IT; select one rig and workflow; set baseline, owner, scope, price, and acceptance criteria; decide whether to launch the 30-day pilot; use results to shape the team mandate, roadmap, and potential client services.</div>
+    <div class="grid reveal">
+      <article class="card"><h3>BRO provides</h3><p>Sponsor · Process owners · Selected users · Approved data · IT contact</p></article>
+      <article class="card"><h3>Our team provides</h3><p>Operations study · Working pilot · Measured results · Documentation · Costed next-step recommendation</p></article>
+    </div>
+  </div>
+  <div class="bottomline"><span>Team details and commercial terms to complete</span><span class="num">12 / 12</span></div>
+</section>
+</main>
+
+<div class="controls" aria-label="Presentation controls">
+  <button id="prev" type="button" aria-label="Previous slide">←</button>
+  <button id="next" type="button" aria-label="Next slide">→</button>
+  <button id="fullscreen" type="button" aria-label="Toggle fullscreen">⛶</button>
+</div>
+<dialog class="dialog" id="sourcesDialog" aria-labelledby="sourcesTitle">
+  <button class="close-dialog" id="sourcesClose" type="button">Close</button>
+  <h2 id="sourcesTitle">Sources and presentation notes</h2>
+  <p>External examples are third-party reported. They are context only, not forecasts or guarantees for BRO. Verify source wording, period, and scope before client presentation.</p>
+  <ul>
+    <li>Khalda / Apache: <a href="https://en.amwalalghad.com/?p=226026" target="_blank" rel="noopener">Amwal Al Ghad report</a>.</li>
+    <li>Nabors predictive maintenance: <a href="https://kcftech.com/case-study/nabors-avoids-320000-in-equipment-costs/" target="_blank" rel="noopener">KCF Technologies case study</a>.</li>
+    <li>GPC + SLB: <a href="https://egyptoil-gas.com/events_coverage/eogc25-excellence-awards" target="_blank" rel="noopener">Egypt Oil & Gas</a>; <a href="https://arabfinance.com/en/news/newdetails/egypt-awards-upstream-projects-at-eogc-2025-as-badawi-cites-energy-security-gains" target="_blank" rel="noopener">Arab Finance</a>.</li>
+    <li>ADES RigEye background: <a href="https://theenergyyear.com/articles/a-saudi-national-champion-with-international-reach/" target="_blank" rel="noopener">The Energy Year</a>.</li>
+    <li>BRO public information: <a href="https://bro-eg.com/" target="_blank" rel="noopener">bro-eg.com</a>. Confirm current operational facts with BRO.</li>
+  </ul>
+  <h3>Additional industry examples</h3><ul><li><strong>GPC + SLB:</strong> Public reporting cited more than $33 million in value from an AI workflow on mature fields. This is reported value, not necessarily cost savings; verify source, scope, period, and wording.</li><li><strong>ADES:</strong> Public information describes its RigEye AI-supported CCTV safety system. Do not attach unverified savings or incident-reduction figures.</li></ul><h3>Measures to consider after discovery</h3><p>IT incidents, detection/resolution time, restore tests; critical spare stock-outs and rig waiting; maintenance backlog and unplanned downtime; QHSE action closure and audit effort; NPT hours by agreed cause.</p><h3>Operations-study questions</h3><ul><li>How do rig reports reach management, and where do delays or corrections occur?</li><li>Which workflows create the most delay or repeated effort?</li><li>How are rigs, equipment, maintenance, parts, QHSE, recruitment, and approvals managed?</li><li>Which ERP, reporting, accounting, email, hosting, and backup systems are used?</li><li>What services do clients receive, and what additional digital services might they value and authorize?</li><li>Who owns the process, data, and client relationship for potential service extensions?</li></ul><p><strong>Before presenting:</strong> confirm team roles, reporting line and mandate; BRO fleet and operational facts; pilot rig/workflow, price, owner, criteria, data/access, support, and handover; client demand and data rights; all external figures and scope.</p>
+</dialog>
+<script>
+document.querySelectorAll('.slide').forEach(s=>{const st=document.createElement('div');st.className='stage';while(s.firstChild)st.appendChild(s.firstChild);s.appendChild(st);});
+</script>
+<script>
+/* Accessible slide controller: keyboard, buttons, wheel, touch, dots, and progress. */
+(() => {
+  const slides = [...document.querySelectorAll('.slide')];
+  const progress = document.getElementById('progressBar');
+  const dots = document.getElementById('dots');
+  const dialog = document.getElementById('sourcesDialog');
+  let current = 0;
+  let wheelLock = false;
+  let touchStart = null;
+  const clampIndex = n => Math.max(0, Math.min(slides.length - 1, n));
+  function goTo(index) { current = clampIndex(index); slides[current].scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'}); update(); }
+  function update() {
+    slides.forEach((s,i) => { const active=i===current; s.classList.toggle('is-active',active); if(active) s.setAttribute('aria-current','true'); else s.removeAttribute('aria-current'); });
+    progress.style.width=((current+1)/slides.length*100)+'%';
+    [...dots.children].forEach((d,i)=>d.setAttribute('aria-current',i===current?'true':'false'));
+    document.title=`${String(current+1).padStart(2,'0')} · ${slides[current].dataset.title} | BRO Technology Evolution`;
+  }
+  slides.forEach((s,i)=>{ const b=document.createElement('button'); b.type='button'; b.setAttribute('aria-label',`Go to slide ${i+1}: ${s.dataset.title}`); b.addEventListener('click',()=>goTo(i)); dots.appendChild(b); });
+  const observer=new IntersectionObserver(entries=>entries.forEach(e=>{ if(e.isIntersecting && e.intersectionRatio>.55){ current=slides.indexOf(e.target); update(); }}),{threshold:[.55,.8]});
+  slides.forEach(s=>observer.observe(s));
+  document.getElementById('prev').addEventListener('click',()=>goTo(current-1));
+  document.getElementById('next').addEventListener('click',()=>goTo(current+1));
+  document.getElementById('fullscreen').addEventListener('click',()=>{ if(!document.fullscreenElement) document.documentElement.requestFullscreen?.(); else document.exitFullscreen?.(); });
+  document.addEventListener('keydown',e=>{
+    if(dialog.open){ if(e.key==='Escape') dialog.close(); return; }
+    if(['ArrowRight','ArrowDown','PageDown',' '].includes(e.key)){e.preventDefault();goTo(current+1);}
+    if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();goTo(current-1);}
+    if(e.key==='Home') goTo(0); if(e.key==='End') goTo(slides.length-1);
+  });
+  document.addEventListener('wheel',e=>{ if(wheelLock||Math.abs(e.deltaY)<18||dialog.open)return; wheelLock=true; goTo(current+(e.deltaY>0?1:-1)); setTimeout(()=>wheelLock=false,750); },{passive:true});
+  document.addEventListener('touchstart',e=>{touchStart=e.changedTouches[0].clientX;},{passive:true});
+  document.addEventListener('touchend',e=>{if(touchStart===null)return;const dx=e.changedTouches[0].clientX-touchStart;if(Math.abs(dx)>65)goTo(current+(dx<0?1:-1));touchStart=null;},{passive:true});
+  document.getElementById('sourcesOpen').addEventListener('click',()=>dialog.showModal());
+  document.getElementById('sourcesClose').addEventListener('click',()=>dialog.close());
+  update();
+})();
+</script>
+</body>
+</html>
