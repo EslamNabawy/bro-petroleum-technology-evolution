@@ -369,7 +369,9 @@ h2{font-size:3rem;max-width:26ch;line-height:1.1}
 
 /* Slide 1: pair the strategic headline with an external illustrative video. */
 .title-slide .slide-content{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(22rem,.95fr);align-content:center;align-items:center;gap:clamp(1.25rem,3.5vw,3.5rem)}
-.title-copy{grid-column:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:clamp(.7rem,1.2vw,1.1rem)}
+.title-slide .slide-content>.title-copy{grid-column:1}
+.title-slide .slide-content>.video-preview{grid-column:2}
+.title-copy{min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:clamp(.7rem,1.2vw,1.1rem)}
 .title-slide h1{max-width:13ch;font-size:clamp(2.5rem,4.15cqw,4.35rem);line-height:1.04}
 .title-slide .lead{max-width:40ch;font-size:clamp(1.05rem,1.55cqw,1.4rem);line-height:1.4}
 .video-preview{grid-column:2;align-self:center;width:100%;min-width:0}
@@ -380,7 +382,7 @@ h2{font-size:3rem;max-width:26ch;line-height:1.1}
 .title-slide .mobile-brief{display:none!important}
 @media (max-width:700px) and (orientation:portrait){
   .title-slide .slide-content{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto;align-content:start;align-items:stretch;gap:.8rem}
-  .title-copy,.video-preview{grid-column:1}
+  .title-slide .slide-content>.title-copy,.title-slide .slide-content>.video-preview{grid-column:1}
   .title-copy{gap:.55rem}
   .title-slide h1{max-width:17ch;font-size:clamp(1.85rem,7.4vw,2.5rem)}
   .title-slide .lead{font-size:.92rem;line-height:1.35}
@@ -411,8 +413,8 @@ h2{font-size:3rem;max-width:26ch;line-height:1.1}
     <p class="lead reveal">Remove the friction that limits profitability today—and build the operational foundations to lead with AI tomorrow.</p>
     </div>
     <div class="video-preview reveal">
-      <div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/l1LYg9NCKWY?rel=0" title="Computer vision and visual monitoring in retail — illustrative example" loading="eager" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
-      <p class="video-caption">External illustrative example: computer vision in retail. This is not BRO footage or a BRO deployment. <a href="https://www.youtube.com/watch?v=l1LYg9NCKWY" target="_blank" rel="noopener noreferrer">Open on YouTube ↗</a></p>
+      <div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/l1LYg9NCKWY?rel=0" title="DeepX computer vision application — external illustrative example" loading="eager" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+      <p class="video-caption">External illustrative example of computer vision. This is not BRO footage or a BRO deployment. <a href="https://www.youtube.com/watch?v=l1LYg9NCKWY" target="_blank" rel="noopener noreferrer">Open on YouTube ↗</a></p>
     </div>
 
   </div>
