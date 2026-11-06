@@ -286,7 +286,7 @@ html,body{background:var(--paper)}
 .stage{background:var(--paper)}
 .slide:nth-child(even) .stage{background:var(--paper)}
 .slide:nth-child(even) .card,.slide:nth-child(even) .track,.slide:nth-child(even) .week{background:var(--white)}
-.slide-content{padding:4.2rem 5.2rem 3.8rem 5.4rem;gap:1.4rem}
+.slide-content{padding:clamp(4.2rem,8vh,5.5rem) 5.2rem 3.8rem 5.4rem;gap:1.4rem;justify-content:safe center}
 .topline{left:5.4rem;right:5.2rem;top:1.3rem}
 .bottomline{left:5.4rem;right:11rem;bottom:1.1rem}
 /* readable, confident type */
